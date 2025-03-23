@@ -1,27 +1,29 @@
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Windows.Forms;
+
 
 namespace GerenciadorReceitasGUI2
 {
-    public partial class Form1 : Form
+    using MaterialSkin;
+    using MaterialSkin.Controls;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    public partial class Form1 : MaterialForm
     {
+        private readonly MaterialSkinManager _materialSkinManager;
+
         public Form1()
         {
             InitializeComponent();
-            this.BackColor = Color.FromArgb(240, 240, 240);
-            AtualizarGrid();
 
-            btnAdicionar.BackColor = Color.FromArgb(0, 120, 215);
-            btnAdicionar.ForeColor = Color.White;
-            btnEditar.BackColor = Color.FromArgb(0, 120, 215);
-            btnEditar.ForeColor = Color.White;
-            btnExcluir.BackColor = Color.FromArgb(220, 53, 69); // Vermelho para "Excluir"
-            btnExcluir.ForeColor = Color.White;
-            //this.Font = new Font("Segoe UI", 10);
-            //dataGridViewReceitas.Font = new Font("Segoe UI", 10);
-            //txtBuscar.Font = new Font("Segoe UI", 10);
+            // Configuração do MaterialSkin
+            _materialSkinManager = MaterialSkinManager.Instance;
+            _materialSkinManager.AddFormToManage(this);
+            _materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            _materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.Blue500, Primary.Blue700, Primary.Blue100,
+                Accent.LightBlue200, TextShade.WHITE
+            );
         }
 
         private void AtualizarGrid()

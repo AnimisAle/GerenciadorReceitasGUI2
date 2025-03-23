@@ -9,4 +9,6 @@ public class Receita
     public int CategoriaId { get; set; }
     public Categoria? Categoria { get; set; } // Permite nulo
     public List<Ingrediente> Ingredientes { get; set; } = new List<Ingrediente>();
+
+    public byte[] Foto { get; set; }
 }

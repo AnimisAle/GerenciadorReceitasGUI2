@@ -41,21 +41,21 @@
             // 
             dataGridViewReceitas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewReceitas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewReceitas.Location = new Point(12, 53);
+            dataGridViewReceitas.Location = new Point(12, 132);
             dataGridViewReceitas.Name = "dataGridViewReceitas";
-            dataGridViewReceitas.Size = new Size(765, 330);
+            dataGridViewReceitas.Size = new Size(765, 251);
             dataGridViewReceitas.TabIndex = 0;
             // 
             // txtBuscar
             // 
-            txtBuscar.Location = new Point(12, 12);
+            txtBuscar.Location = new Point(12, 89);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(100, 23);
             txtBuscar.TabIndex = 2;
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(138, 12);
+            btnBuscar.Location = new Point(138, 89);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(75, 23);
             btnBuscar.TabIndex = 3;
