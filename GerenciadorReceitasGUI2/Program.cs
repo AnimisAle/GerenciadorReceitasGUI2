@@ -1,15 +1,25 @@
+
 namespace GerenciadorReceitasGUI2
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            using (var context = new ReceitasContext())
+            {
+                context.Database.EnsureCreated();
+                if (!context.Categorias.Any())
+                {
+                    context.Categorias.AddRange(
+                        new Categoria { Nome = "Sobremesa" },
+                        new Categoria { Nome = "Prato Principal" },
+                        new Categoria { Nome = "Café da Manhã" }
+                    );
+                    context.SaveChanges();
+                }
+            }
+
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
         }

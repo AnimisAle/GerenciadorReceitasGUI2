@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GerenciadorReceitasGUI2;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace GerenciadorReceitas
+namespace GerenciadorReceitasGUI2
 {
     public class ReceitasContext : DbContext
     {

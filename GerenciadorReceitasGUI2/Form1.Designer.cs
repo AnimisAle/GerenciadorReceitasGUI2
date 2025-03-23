@@ -43,9 +43,8 @@
             dataGridViewReceitas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewReceitas.Location = new Point(12, 53);
             dataGridViewReceitas.Name = "dataGridViewReceitas";
-            dataGridViewReceitas.Size = new Size(631, 330);
+            dataGridViewReceitas.Size = new Size(765, 330);
             dataGridViewReceitas.TabIndex = 0;
-            dataGridViewReceitas.CellContentClick += dataGridView1_CellContentClick;
             // 
             // txtBuscar
             // 
@@ -62,7 +61,7 @@
             btnBuscar.TabIndex = 3;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
-            btnBuscar.Click += button1_Click;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // btnAdicionar
             // 
@@ -72,7 +71,7 @@
             btnAdicionar.TabIndex = 4;
             btnAdicionar.Text = "Adicionar";
             btnAdicionar.UseVisualStyleBackColor = true;
-            btnAdicionar.Click += button2_Click;
+            btnAdicionar.Click += btnAdicionar_Click;
             // 
             // btnEditar
             // 
@@ -82,6 +81,7 @@
             btnEditar.TabIndex = 5;
             btnEditar.Text = "Editar";
             btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnExcluir
             // 
@@ -91,6 +91,7 @@
             btnExcluir.TabIndex = 6;
             btnExcluir.Text = "Excluir";
             btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // Form1
             // 
