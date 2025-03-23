@@ -1,0 +1,11 @@
+﻿namespace GerenciadorReceitasGUI2
+{
+    public class Ingrediente
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; } = string.Empty; // Inicializa como vazio
+        public string Quantidade { get; set; } = string.Empty; // Inicializa como vazio
+        public int ReceitaId { get; set; }
+        public Receita? Receita { get; set; } // Permite nulo
+    }
+}
