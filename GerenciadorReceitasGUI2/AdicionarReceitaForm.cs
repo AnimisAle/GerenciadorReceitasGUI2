@@ -1,6 +1,8 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing.Imaging;
 
 namespace GerenciadorReceitasGUI2
 {
@@ -8,20 +10,7 @@ namespace GerenciadorReceitasGUI2
     {
         private readonly MaterialSkinManager _materialSkinManager;
 
-        public AdicionarReceitaForm()
-        {
-            InitializeComponent(); // Inicializa os componentes do formulário
-
-            // Configuração do MaterialSkin
-            _materialSkinManager = MaterialSkinManager.Instance;
-            _materialSkinManager.AddFormToManage(this);
-            _materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            _materialSkinManager.ColorScheme = new ColorScheme(
-                Primary.Blue500, Primary.Blue700, Primary.Blue100,
-                Accent.LightBlue200, TextShade.WHITE
-            );
-        }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [NotMapped]
         public Receita Receita { get; private set; }
 
         public AdicionarReceitaForm(Receita receita = null)
@@ -87,7 +76,7 @@ namespace GerenciadorReceitasGUI2
             Receita.Instrucoes = txtInstrucoes.Text;
             Receita.TempoPreparo = (int)nudTempoPreparo.Value;
             Receita.CategoriaId = (int)cmbCategoria.SelectedValue;
-            Receita.Foto = pictureBoxFoto.Image != null ? ImageToByteArray(pictureBoxFoto.Image) : null;
+            Receita.Foto = pictureBoxFoto.Image != null ? ImageToByteArray(pictureBoxFoto.Image) : null; 
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -108,20 +97,20 @@ namespace GerenciadorReceitasGUI2
                 }
             }
         }
-        private byte[] ImageToByteArray(Image image)
+        private byte[]? ImageToByteArray(Image image)
         {
+            if (image == null) return null; // 🔹 Retorna null se não houver imagem
+
             using (MemoryStream ms = new MemoryStream())
             {
-                image.Save(ms, image.RawFormat);
+                image.Save(ms, ImageFormat.Jpeg);
                 return ms.ToArray();
             }
         }
-        private Image ByteArrayToImage(byte[] byteArray)
+        private Image? ByteArrayToImage(byte[]? byteArray)
         {
-            if (byteArray == null || byteArray.Length == 0)
-            {
-                return null;
-            }
+            if (byteArray == null) return null; // 🔹 Se for NULL, retorna NULL
+
             using (MemoryStream ms = new MemoryStream(byteArray))
             {
                 return Image.FromStream(ms);

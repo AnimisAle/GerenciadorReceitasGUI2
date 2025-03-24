@@ -10,5 +10,5 @@ public class Receita
     public Categoria? Categoria { get; set; } // Permite nulo
     public List<Ingrediente> Ingredientes { get; set; } = new List<Ingrediente>();
 
-    public byte[] Foto { get; set; }
+    public byte[]? Foto { get; set; }
 }
