@@ -24,16 +24,25 @@ namespace GerenciadorReceitasGUI2
                 Primary.Blue500, Primary.Blue700, Primary.Blue100,
                 Accent.LightBlue200, TextShade.WHITE
             );
+
+            AtualizarGrid(); 
         }
 
         private void AtualizarGrid()
         {
             using (var context = new ReceitasContext())
             {
-                dataGridViewReceitas.DataSource = context.Receitas
+                var receitas = context.Receitas
                     .Include(r => r.Categoria)
                     .Include(r => r.Ingredientes)
                     .ToList();
+
+                if (receitas.Count == 0)
+                {
+                    MessageBox.Show("Nenhuma receita encontrada!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                dataGridViewReceitas.DataSource = receitas;
             }
         }
 
@@ -91,11 +100,12 @@ namespace GerenciadorReceitasGUI2
         {
             using (var context = new ReceitasContext())
             {
-                var termo = txtBuscar.Text;
+                var termo = txtBuscar.Text.ToLower();
+
                 dataGridViewReceitas.DataSource = context.Receitas
                     .Include(r => r.Categoria)
                     .Include(r => r.Ingredientes)
-                    .Where(r => r.Nome.Contains(termo, StringComparison.OrdinalIgnoreCase))
+                    .Where(r => r.Nome.ToLower().Contains(termo))
                     .ToList();
             }
         }
