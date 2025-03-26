@@ -1,6 +1,6 @@
 ﻿using GerenciadorReceitasGUI2;
 
-public class Receita
+public class Receita : ItemReceita
 {
     public int Id { get; set; }
     public string Nome { get; set; } = string.Empty; // Inicializa como vazio
@@ -11,4 +11,9 @@ public class Receita
     public List<Ingrediente> Ingredientes { get; set; } = new List<Ingrediente>();
 
     public byte[]? Foto { get; set; }
+
+    public override string Descricao()
+    {
+        return $"Receita: {Nome} - Tempo: {TempoPreparo} min";
+    }
 }

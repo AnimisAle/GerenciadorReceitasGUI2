@@ -1,6 +1,6 @@
 ﻿namespace GerenciadorReceitasGUI2
 {
-    public class Ingrediente
+    public class Ingrediente : ItemReceita 
     {
         public int Id { get; set; }
         public string Nome { get; set; } = string.Empty; // Inicializa como vazio
@@ -9,6 +9,10 @@
         public Receita? Receita { get; set; } // Permite nulo
 
         public override string ToString()
+        {
+            return $"{Nome} - {Quantidade}";
+        }
+        public override string Descricao()
         {
             return $"{Nome} - {Quantidade}";
         }
