@@ -24,7 +24,9 @@ namespace GerenciadorReceitasGUI2
                 Primary.Blue500, Primary.Blue700, Primary.Blue100,
                 Accent.LightBlue200, TextShade.WHITE
             );
-
+            dataGridViewReceitas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewReceitas.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewReceitas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             AtualizarGrid(); 
         }
 
@@ -33,9 +35,16 @@ namespace GerenciadorReceitasGUI2
             using (var context = new ReceitasContext())
             {
                 var receitas = context.Receitas
-                    .Include(r => r.Categoria)
-                    .Include(r => r.Ingredientes)
-                    .ToList();
+            .Include(r => r.Categoria)
+            .Include(r => r.Ingredientes)
+            .Select(r => new ReceitaDTO
+            {
+                Id = r.Id,
+                Nome = r.Nome,
+                Categoria = r.Categoria != null ? r.Categoria.Nome : "Sem Categoria",
+                Ingredientes = string.Join(", ", r.Ingredientes.Select(i => i.Nome))
+            })
+            .ToList();
 
                 if (receitas.Count == 0)
                 {
@@ -64,18 +73,21 @@ namespace GerenciadorReceitasGUI2
         {
             if (dataGridViewReceitas.SelectedRows.Count > 0)
             {
-                var receitaSelecionada = (Receita)dataGridViewReceitas.SelectedRows[0].DataBoundItem;
+                var receitaDTO = (ReceitaDTO)dataGridViewReceitas.SelectedRows[0].DataBoundItem;
                 using (var context = new ReceitasContext())
                 {
                     var receita = context.Receitas
                         .Include(r => r.Ingredientes)
-                        .FirstOrDefault(r => r.Id == receitaSelecionada.Id);
+                        .FirstOrDefault(r => r.Id == receitaDTO.Id); // Buscando pelo ID do DTO
 
-                    var formAdicionar = new AdicionarReceitaForm(receita);
-                    if (formAdicionar.ShowDialog() == DialogResult.OK)
+                    if (receita != null)
                     {
-                        context.SaveChanges();
-                        AtualizarGrid();
+                        var formAdicionar = new AdicionarReceitaForm(receita);
+                        if (formAdicionar.ShowDialog() == DialogResult.OK)
+                        {
+                            context.SaveChanges();
+                            AtualizarGrid();
+                        }
                     }
                 }
             }
@@ -85,10 +97,10 @@ namespace GerenciadorReceitasGUI2
         {
             if (dataGridViewReceitas.SelectedRows.Count > 0)
             {
-                var receitaSelecionada = (Receita)dataGridViewReceitas.SelectedRows[0].DataBoundItem;
+                var receitaDTO = (ReceitaDTO)dataGridViewReceitas.SelectedRows[0].DataBoundItem;
                 using (var context = new ReceitasContext())
                 {
-                    var receita = context.Receitas.Find(receitaSelecionada.Id);
+                    var receita = context.Receitas.Find(receitaDTO.Id);
                     context.Receitas.Remove(receita);
                     context.SaveChanges();
                     AtualizarGrid();
@@ -102,11 +114,20 @@ namespace GerenciadorReceitasGUI2
             {
                 var termo = txtBuscar.Text.ToLower();
 
-                dataGridViewReceitas.DataSource = context.Receitas
-                    .Include(r => r.Categoria)
-                    .Include(r => r.Ingredientes)
-                    .Where(r => r.Nome.ToLower().Contains(termo))
-                    .ToList();
+                var receitas = context.Receitas
+            .Include(r => r.Categoria)
+            .Include(r => r.Ingredientes)
+            .Where(r => r.Nome.ToLower().Contains(termo))
+            .Select(r => new ReceitaDTO
+            {
+                Id = r.Id,
+                Nome = r.Nome,
+                Categoria = r.Categoria.Nome,
+                Ingredientes = string.Join(", ", r.Ingredientes.Select(i => i.Nome)) // Junta os ingredientes em uma string
+            })
+            .ToList();
+
+                dataGridViewReceitas.DataSource = receitas;
             }
         }
     }
