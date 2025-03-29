@@ -6,6 +6,7 @@ namespace GerenciadorReceitasGUI2
     using MaterialSkin;
     using MaterialSkin.Controls;
     using System.Drawing;
+    using System.Text;
     using System.Windows.Forms;
 
     public partial class Form1 : MaterialForm
@@ -128,6 +129,64 @@ namespace GerenciadorReceitasGUI2
             .ToList();
 
                 dataGridViewReceitas.DataSource = receitas;
+            }
+        }
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewReceitas.SelectedRows.Count > 0)
+            {
+                var receitaDTO = (ReceitaDTO)dataGridViewReceitas.SelectedRows[0].DataBoundItem;
+                ExportarReceitaParaTxt(receitaDTO);
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma receita para exportar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ExportarReceitaParaTxt(ReceitaDTO receitaDTO)
+        {
+            using (var context = new ReceitasContext())
+            {
+                var receita = context.Receitas
+                    .Include(r => r.Categoria)
+                    .Include(r => r.Ingredientes)
+                    .FirstOrDefault(r => r.Id == receitaDTO.Id);
+
+                if (receita == null)
+                {
+                    MessageBox.Show("Receita não encontrada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Criar um conteúdo formatado para o arquivo
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("===== Receita =====");
+                sb.AppendLine($"Nome: {receita.Nome}");
+                sb.AppendLine($"Categoria: {receita.Categoria?.Nome ?? "Sem Categoria"}");
+                sb.AppendLine($"Tempo de Preparo: {receita.TempoPreparo} minutos");
+                sb.AppendLine("Ingredientes:");
+                foreach (var ingrediente in receita.Ingredientes)
+                {
+                    sb.AppendLine($" - {ingrediente.Nome} ({ingrediente.Quantidade})");
+                }
+                sb.AppendLine("Instruções:");
+                sb.AppendLine(receita.Instrucoes);
+                sb.AppendLine("===================");
+
+                // Escolher o local para salvar o arquivo
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Arquivo de Texto|*.txt";
+                    saveFileDialog.Title = "Salvar Receita";
+                    saveFileDialog.FileName = $"{receita.Nome}.txt";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        File.WriteAllText(saveFileDialog.FileName, sb.ToString());
+                        MessageBox.Show("Receita exportada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
             }
         }
     }

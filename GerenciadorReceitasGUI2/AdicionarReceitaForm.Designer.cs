@@ -214,6 +214,7 @@
             button1.TabIndex = 20;
             button1.Text = "Selecione a Foto";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += btnSelecionarFoto_Click;
             // 
             // label7
             // 

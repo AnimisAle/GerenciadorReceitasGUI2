@@ -34,6 +34,7 @@
             btnAdicionar = new Button();
             btnEditar = new Button();
             btnExcluir = new Button();
+            btnExportar = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewReceitas).BeginInit();
             SuspendLayout();
             // 
@@ -85,7 +86,7 @@
             // 
             // btnExcluir
             // 
-            btnExcluir.Location = new Point(212, 406);
+            btnExcluir.Location = new Point(299, 406);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.Size = new Size(75, 23);
             btnExcluir.TabIndex = 6;
@@ -93,11 +94,22 @@
             btnExcluir.UseVisualStyleBackColor = true;
             btnExcluir.Click += btnExcluir_Click;
             // 
+            // btnExportar
+            // 
+            btnExportar.Location = new Point(209, 406);
+            btnExportar.Name = "btnExportar";
+            btnExportar.Size = new Size(75, 23);
+            btnExportar.TabIndex = 7;
+            btnExportar.Text = "Exportar";
+            btnExportar.UseVisualStyleBackColor = true;
+            btnExportar.Click += btnExportar_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnExportar);
             Controls.Add(btnExcluir);
             Controls.Add(btnEditar);
             Controls.Add(btnAdicionar);
@@ -119,5 +131,6 @@
         private Button btnAdicionar;
         private Button btnEditar;
         private Button btnExcluir;
+        private Button btnExportar;
     }
 }
