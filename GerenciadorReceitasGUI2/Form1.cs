@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 
 namespace GerenciadorReceitasGUI2
@@ -17,7 +17,7 @@ namespace GerenciadorReceitasGUI2
         {
             InitializeComponent();
 
-            // Configura��o do MaterialSkin
+            // Configuração do MaterialSkin
             _materialSkinManager = MaterialSkinManager.Instance;
             _materialSkinManager.AddFormToManage(this);
             _materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
@@ -155,24 +155,29 @@ namespace GerenciadorReceitasGUI2
 
                 if (receita == null)
                 {
-                    MessageBox.Show("Receita n�o encontrada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Receita não encontrada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // Criar um conte�do formatado para o arquivo
+                // Criar um conteúdo formatado para o arquivo
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine("===== Receita =====");
-                sb.AppendLine($"Nome: {receita.Nome}");
-                sb.AppendLine($"Categoria: {receita.Categoria?.Nome ?? "Sem Categoria"}");
-                sb.AppendLine($"Tempo de Preparo: {receita.TempoPreparo} minutos");
-                sb.AppendLine("Ingredientes:");
+                sb.AppendLine("╔══════════════════════════╗");
+                sb.AppendLine($"    📜 RECEITA - {receita.Nome.ToUpper()}    ");
+                sb.AppendLine("╚══════════════════════════╝\n");
+
+                sb.AppendLine($"🍽️ Categoria: {receita.Categoria?.Nome ?? "Sem Categoria"}");
+                sb.AppendLine($"⏳ Tempo de Preparo: {receita.TempoPreparo} minutos");
+                sb.AppendLine(new string('-', 40));
+
+                sb.AppendLine("\n🥕 Ingredientes:\n");
                 foreach (var ingrediente in receita.Ingredientes)
                 {
-                    sb.AppendLine($" - {ingrediente.Nome} ({ingrediente.Quantidade})");
+                    sb.AppendLine($"   ➜ {ingrediente.Nome} ({ingrediente.Quantidade})");
                 }
-                sb.AppendLine("Instru��es:");
+
+                sb.AppendLine("\n📖 Modo de Preparo:\n");
                 sb.AppendLine(receita.Instrucoes);
-                sb.AppendLine("===================");
+                sb.AppendLine("\n" + new string('=', 40));
 
                 // Escolher o local para salvar o arquivo
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
