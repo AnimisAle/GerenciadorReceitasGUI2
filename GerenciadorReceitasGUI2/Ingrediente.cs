@@ -14,7 +14,7 @@
         }
         public override string Descricao()
         {
-            return $"{Nome} - {Quantidade}";
+            return $"🥕 {Nome} ({Quantidade})";
         }
     }
 }

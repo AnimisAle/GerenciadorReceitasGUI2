@@ -12,8 +12,13 @@ public class Receita : ItemReceita
 
     public byte[]? Foto { get; set; }
 
+    public override string ToString()
+    {
+        return $"{Nome} - {Instrucoes}";
+    }
+
     public override string Descricao()
     {
-        return $"Receita: {Nome} - Tempo: {TempoPreparo} min";
+        return $"🍽️ {Nome} - ⏳ {TempoPreparo} min";
     }
 }

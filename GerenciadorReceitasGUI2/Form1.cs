@@ -36,16 +36,16 @@ namespace GerenciadorReceitasGUI2
             using (var context = new ReceitasContext())
             {
                 var receitas = context.Receitas
-            .Include(r => r.Categoria)
-            .Include(r => r.Ingredientes)
+                    .Include(r => r.Categoria)
+                    .Include(r => r.Ingredientes)
             .Select(r => new ReceitaDTO
-            {
+                    {
                 Id = r.Id,
-                Nome = r.Nome,
-                Categoria = r.Categoria != null ? r.Categoria.Nome : "Sem Categoria",
-                Ingredientes = string.Join(", ", r.Ingredientes.Select(i => i.Nome))
-            })
-            .ToList();
+                        Nome = r.Nome, 
+                        Categoria = r.Categoria != null ? r.Categoria.Nome : "Sem Categoria",
+                        Ingredientes = string.Join(", ", r.Ingredientes.Select(i => i.Nome))
+                    })
+                    .ToList();
 
                 if (receitas.Count == 0)
                 {
@@ -78,7 +78,7 @@ namespace GerenciadorReceitasGUI2
                 using (var context = new ReceitasContext())
                 {
                     var receita = context.Receitas
-                        .Include(r => r.Ingredientes)
+               .Include(r => r.Ingredientes)
                         .FirstOrDefault(r => r.Id == receitaDTO.Id); // Buscando pelo ID do DTO
 
                     if (receita != null)
@@ -159,27 +159,22 @@ namespace GerenciadorReceitasGUI2
                     return;
                 }
 
-                // Criar um conteúdo formatado para o arquivo
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine("╔══════════════════════════╗");
-                sb.AppendLine($"    📜 RECEITA - {receita.Nome.ToUpper()}    ");
-                sb.AppendLine("╚══════════════════════════╝\n");
-
-                sb.AppendLine($"🍽️ Categoria: {receita.Categoria?.Nome ?? "Sem Categoria"}");
-                sb.AppendLine($"⏳ Tempo de Preparo: {receita.TempoPreparo} minutos");
+                sb.AppendLine(receita.Descricao()); // 🔹 Usa o método da classe abstrata
+                sb.AppendLine($"Categoria: {receita.Categoria?.Nome ?? "Sem Categoria"}");
+                sb.AppendLine($"Tempo de Preparo: {receita.TempoPreparo} minutos");
                 sb.AppendLine(new string('-', 40));
 
                 sb.AppendLine("\n🥕 Ingredientes:\n");
                 foreach (var ingrediente in receita.Ingredientes)
                 {
-                    sb.AppendLine($"   ➜ {ingrediente.Nome} ({ingrediente.Quantidade})");
+                    sb.AppendLine($"   ➜ {ingrediente.Descricao()}"); // 🔹 Usa o método da classe abstrata
                 }
 
                 sb.AppendLine("\n📖 Modo de Preparo:\n");
                 sb.AppendLine(receita.Instrucoes);
                 sb.AppendLine("\n" + new string('=', 40));
 
-                // Escolher o local para salvar o arquivo
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                 {
                     saveFileDialog.Filter = "Arquivo de Texto|*.txt";
@@ -194,5 +189,6 @@ namespace GerenciadorReceitasGUI2
                 }
             }
         }
+
     }
 }
