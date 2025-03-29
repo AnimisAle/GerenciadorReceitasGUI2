@@ -91,9 +91,15 @@ namespace GerenciadorReceitasGUI2
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Filter = "Arquivos de imagem|*.jpg;*.jpeg;*.png;*.bmp";
+
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    pictureBoxFoto.Image = Image.FromFile(openFileDialog.FileName);
+                    Image imagemOriginal = Image.FromFile(openFileDialog.FileName);
+
+                    // Redimensiona a imagem ANTES de exibir no PictureBox
+                    Image imagemRedimensionada = RedimensionarImagem(imagemOriginal, 175, 176);
+
+                    pictureBoxFoto.Image = imagemRedimensionada;
                 }
             }
         }
@@ -101,9 +107,12 @@ namespace GerenciadorReceitasGUI2
         {
             if (image == null) return null; // 🔹 Retorna null se não houver imagem
 
+            // Redimensiona a imagem antes de salvar
+            Image imagemRedimensionada = RedimensionarImagem(image, 175, 176);
+
             using (MemoryStream ms = new MemoryStream())
             {
-                image.Save(ms, ImageFormat.Jpeg);
+                imagemRedimensionada.Save(ms, ImageFormat.Jpeg);
                 return ms.ToArray();
             }
         }
@@ -115,6 +124,16 @@ namespace GerenciadorReceitasGUI2
             {
                 return Image.FromStream(ms);
             }
+        }
+        private Image RedimensionarImagem(Image imagem, int largura, int altura)
+        {
+            Bitmap imagemRedimensionada = new Bitmap(largura, altura);
+            using (Graphics g = Graphics.FromImage(imagemRedimensionada))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.DrawImage(imagem, 0, 0, largura, altura);
+            }
+            return imagemRedimensionada;
         }
     }
 }
