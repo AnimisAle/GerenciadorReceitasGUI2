@@ -229,7 +229,7 @@
             // 
             rtbInstrucoes.Location = new Point(93, 132);
             rtbInstrucoes.Name = "rtbInstrucoes";
-            rtbInstrucoes.Size = new Size(317, 96);
+            rtbInstrucoes.Size = new Size(398, 96);
             rtbInstrucoes.TabIndex = 24;
             rtbInstrucoes.Text = "";
             // 
