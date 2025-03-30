@@ -31,7 +31,6 @@
             label1 = new Label();
             txtNome = new TextBox();
             label2 = new Label();
-            txtInstrucoes = new TextBox();
             label3 = new Label();
             nudTempoPreparo = new NumericUpDown();
             label4 = new Label();
@@ -49,6 +48,7 @@
             button1 = new Button();
             label7 = new Label();
             label9 = new Label();
+            rtbInstrucoes = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)nudTempoPreparo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxFoto).BeginInit();
             SuspendLayout();
@@ -66,29 +66,22 @@
             // 
             txtNome.Location = new Point(93, 89);
             txtNome.Name = "txtNome";
-            txtNome.Size = new Size(100, 23);
+            txtNome.Size = new Size(253, 23);
             txtNome.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(20, 140);
+            label2.Location = new Point(12, 132);
             label2.Name = "label2";
             label2.Size = new Size(61, 15);
             label2.TabIndex = 2;
             label2.Text = "Instruções";
             // 
-            // txtInstrucoes
-            // 
-            txtInstrucoes.Location = new Point(98, 132);
-            txtInstrucoes.Name = "txtInstrucoes";
-            txtInstrucoes.Size = new Size(384, 23);
-            txtInstrucoes.TabIndex = 3;
-            // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(20, 175);
+            label3.Location = new Point(12, 244);
             label3.Name = "label3";
             label3.Size = new Size(139, 15);
             label3.TabIndex = 4;
@@ -96,7 +89,7 @@
             // 
             // nudTempoPreparo
             // 
-            nudTempoPreparo.Location = new Point(181, 173);
+            nudTempoPreparo.Location = new Point(158, 242);
             nudTempoPreparo.Name = "nudTempoPreparo";
             nudTempoPreparo.Size = new Size(120, 23);
             nudTempoPreparo.TabIndex = 5;
@@ -104,7 +97,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(20, 219);
+            label4.Location = new Point(12, 281);
             label4.Name = "label4";
             label4.Size = new Size(58, 15);
             label4.TabIndex = 6;
@@ -113,15 +106,15 @@
             // cmbCategoria
             // 
             cmbCategoria.FormattingEnabled = true;
-            cmbCategoria.Location = new Point(107, 216);
+            cmbCategoria.Location = new Point(93, 278);
             cmbCategoria.Name = "cmbCategoria";
-            cmbCategoria.Size = new Size(121, 23);
+            cmbCategoria.Size = new Size(185, 23);
             cmbCategoria.TabIndex = 7;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(20, 257);
+            label5.Location = new Point(9, 328);
             label5.Name = "label5";
             label5.Size = new Size(72, 15);
             label5.TabIndex = 8;
@@ -130,7 +123,7 @@
             // lstIngredientes
             // 
             lstIngredientes.FormattingEnabled = true;
-            lstIngredientes.Location = new Point(107, 257);
+            lstIngredientes.Location = new Point(93, 328);
             lstIngredientes.Name = "lstIngredientes";
             lstIngredientes.Size = new Size(317, 94);
             lstIngredientes.TabIndex = 9;
@@ -138,7 +131,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(20, 378);
+            label6.Location = new Point(12, 438);
             label6.Name = "label6";
             label6.Size = new Size(67, 15);
             label6.TabIndex = 10;
@@ -146,21 +139,21 @@
             // 
             // txtIngrediente
             // 
-            txtIngrediente.Location = new Point(93, 370);
+            txtIngrediente.Location = new Point(93, 435);
             txtIngrediente.Name = "txtIngrediente";
             txtIngrediente.Size = new Size(100, 23);
             txtIngrediente.TabIndex = 11;
             // 
             // txtIngredienteQuantidade
             // 
-            txtIngredienteQuantidade.Location = new Point(303, 375);
+            txtIngredienteQuantidade.Location = new Point(298, 435);
             txtIngredienteQuantidade.Name = "txtIngredienteQuantidade";
             txtIngredienteQuantidade.Size = new Size(100, 23);
             txtIngredienteQuantidade.TabIndex = 13;
             // 
             // btnAdicionarIngrediente
             // 
-            btnAdicionarIngrediente.Location = new Point(430, 374);
+            btnAdicionarIngrediente.Location = new Point(412, 434);
             btnAdicionarIngrediente.Name = "btnAdicionarIngrediente";
             btnAdicionarIngrediente.Size = new Size(180, 23);
             btnAdicionarIngrediente.TabIndex = 14;
@@ -170,7 +163,7 @@
             // 
             // btnSalvar
             // 
-            btnSalvar.Location = new Point(20, 415);
+            btnSalvar.Location = new Point(20, 487);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.Size = new Size(180, 23);
             btnSalvar.TabIndex = 15;
@@ -180,7 +173,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(223, 415);
+            btnCancelar.Location = new Point(218, 487);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(180, 23);
             btnCancelar.TabIndex = 16;
@@ -191,7 +184,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(218, 378);
+            label8.Location = new Point(209, 438);
             label8.Name = "label8";
             label8.Size = new Size(69, 15);
             label8.TabIndex = 18;
@@ -232,11 +225,20 @@
             label9.TabIndex = 21;
             label9.Text = "Foto:";
             // 
+            // rtbInstrucoes
+            // 
+            rtbInstrucoes.Location = new Point(93, 132);
+            rtbInstrucoes.Name = "rtbInstrucoes";
+            rtbInstrucoes.Size = new Size(317, 96);
+            rtbInstrucoes.TabIndex = 24;
+            rtbInstrucoes.Text = "";
+            // 
             // AdicionarReceitaForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 522);
+            Controls.Add(rtbInstrucoes);
             Controls.Add(label9);
             Controls.Add(label7);
             Controls.Add(button1);
@@ -254,12 +256,11 @@
             Controls.Add(label4);
             Controls.Add(nudTempoPreparo);
             Controls.Add(label3);
-            Controls.Add(txtInstrucoes);
             Controls.Add(label2);
             Controls.Add(txtNome);
             Controls.Add(label1);
             Name = "AdicionarReceitaForm";
-            Text = "AdicionarReceitaForm";
+            Text = "Formulário - Receita";
             ((System.ComponentModel.ISupportInitialize)nudTempoPreparo).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxFoto).EndInit();
             ResumeLayout(false);
@@ -271,7 +272,6 @@
         private Label label1;
         private TextBox txtNome;
         private Label label2;
-        private TextBox txtInstrucoes;
         private Label label3;
         private NumericUpDown nudTempoPreparo;
         private Label label4;
@@ -289,5 +289,6 @@
         private Button button1;
         private Label label7;
         private Label label9;
+        private RichTextBox rtbInstrucoes;
     }
 }

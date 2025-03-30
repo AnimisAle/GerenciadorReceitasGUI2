@@ -43,7 +43,7 @@ namespace GerenciadorReceitasGUI2
             if (receita != null)
             {
                 txtNome.Text = receita.Nome;
-                txtInstrucoes.Text = receita.Instrucoes;
+                rtbInstrucoes.Text = receita.Instrucoes;
                 nudTempoPreparo.Value = receita.TempoPreparo;
                 cmbCategoria.SelectedValue = receita.CategoriaId;
                 lstIngredientes.Items.AddRange(receita.Ingredientes.ToArray());
@@ -51,6 +51,7 @@ namespace GerenciadorReceitasGUI2
             }
         }
 
+        // Botão de adicionar o ingrediente a lista de ingredientes
         private void btnAdicionarIngrediente_Click(object sender, EventArgs e)
         {
             var ingrediente = new Ingrediente
@@ -64,6 +65,7 @@ namespace GerenciadorReceitasGUI2
             txtIngredienteQuantidade.Clear();
         }
 
+        // Botão de salvar
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             if (cmbCategoria.SelectedValue == null)
@@ -73,19 +75,22 @@ namespace GerenciadorReceitasGUI2
             }
 
             Receita.Nome = txtNome.Text;
-            Receita.Instrucoes = txtInstrucoes.Text;
+            Receita.Instrucoes = rtbInstrucoes.Text;
             Receita.TempoPreparo = (int)nudTempoPreparo.Value;
             Receita.CategoriaId = (int)cmbCategoria.SelectedValue;
-            Receita.Foto = pictureBoxFoto.Image != null ? ImageToByteArray(pictureBoxFoto.Image) : null; 
+            Receita.Foto = pictureBoxFoto.Image != null ? ImageToByteArray(pictureBoxFoto.Image) : null;
             DialogResult = DialogResult.OK;
             Close();
         }
 
+        // Botão de cancelar
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
+
+        // Botão de selecionar a foto
         private void btnSelecionarFoto_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -96,18 +101,18 @@ namespace GerenciadorReceitasGUI2
                 {
                     Image imagemOriginal = Image.FromFile(openFileDialog.FileName);
 
-                    // Redimensiona a imagem ANTES de exibir no PictureBox
                     Image imagemRedimensionada = RedimensionarImagem(imagemOriginal, 175, 176);
 
                     pictureBoxFoto.Image = imagemRedimensionada;
                 }
             }
         }
+
+        #region Redimensionar a foto
         private byte[]? ImageToByteArray(Image image)
         {
-            if (image == null) return null; // 🔹 Retorna null se não houver imagem
+            if (image == null) return null;
 
-            // Redimensiona a imagem antes de salvar
             Image imagemRedimensionada = RedimensionarImagem(image, 175, 176);
 
             using (MemoryStream ms = new MemoryStream())
@@ -118,7 +123,7 @@ namespace GerenciadorReceitasGUI2
         }
         private Image? ByteArrayToImage(byte[]? byteArray)
         {
-            if (byteArray == null) return null; // 🔹 Se for NULL, retorna NULL
+            if (byteArray == null) return null;
 
             using (MemoryStream ms = new MemoryStream(byteArray))
             {
@@ -135,5 +140,7 @@ namespace GerenciadorReceitasGUI2
             }
             return imagemRedimensionada;
         }
+        #endregion
+  
     }
 }

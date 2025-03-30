@@ -14,7 +14,9 @@ namespace GerenciadorReceitasGUI2
                     context.Categorias.AddRange(
                         new Categoria { Nome = "Sobremesa" },
                         new Categoria { Nome = "Prato Principal" },
-                        new Categoria { Nome = "Café da Manhã" }
+                        new Categoria { Nome = "Café da Manhã" },
+                        new Categoria { Nome = "Massa"},
+                        new Categoria { Nome = "Salada"}
                     );
                     context.SaveChanges();
                 }
