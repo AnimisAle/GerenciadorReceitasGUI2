@@ -46,7 +46,6 @@
             label8 = new Label();
             pictureBoxFoto = new PictureBox();
             button1 = new Button();
-            label7 = new Label();
             label9 = new Label();
             rtbInstrucoes = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)nudTempoPreparo).BeginInit();
@@ -209,13 +208,6 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += btnSelecionarFoto_Click;
             // 
-            // label7
-            // 
-            label7.Location = new Point(0, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(100, 23);
-            label7.TabIndex = 0;
-            // 
             // label9
             // 
             label9.AutoSize = true;
@@ -240,7 +232,6 @@
             ClientSize = new Size(800, 522);
             Controls.Add(rtbInstrucoes);
             Controls.Add(label9);
-            Controls.Add(label7);
             Controls.Add(button1);
             Controls.Add(pictureBoxFoto);
             Controls.Add(label8);

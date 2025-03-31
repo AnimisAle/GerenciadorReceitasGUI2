@@ -31,6 +31,7 @@ namespace GerenciadorReceitasGUI2
             AtualizarGrid(); 
         }
 
+        // Carrega a grid com informações
         private void AtualizarGrid()
         {
             using (var context = new ReceitasContext())
@@ -56,6 +57,7 @@ namespace GerenciadorReceitasGUI2
             }
         }
 
+        // Botão para chamar o form de adicionar uma nova receita
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
             using (var context = new ReceitasContext())
@@ -70,6 +72,7 @@ namespace GerenciadorReceitasGUI2
             }
         }
 
+        // Botão para editar a receita
         private void btnEditar_Click(object sender, EventArgs e)
         {
             if (dataGridViewReceitas.SelectedRows.Count > 0)
@@ -94,6 +97,7 @@ namespace GerenciadorReceitasGUI2
             }
         }
 
+        // Botão para excluir a receita
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             if (dataGridViewReceitas.SelectedRows.Count > 0)
@@ -109,6 +113,7 @@ namespace GerenciadorReceitasGUI2
             }
         }
 
+        // Botão para buscar a receita
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             using (var context = new ReceitasContext())
@@ -131,6 +136,7 @@ namespace GerenciadorReceitasGUI2
                 dataGridViewReceitas.DataSource = receitas;
             }
         }
+        // Botão de exportar a receita
         private void btnExportar_Click(object sender, EventArgs e)
         {
             if (dataGridViewReceitas.SelectedRows.Count > 0)
@@ -143,6 +149,7 @@ namespace GerenciadorReceitasGUI2
                 MessageBox.Show("Selecione uma receita para exportar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         private void ExportarReceitaParaTxt(ReceitaDTO receitaDTO)
         {
@@ -160,7 +167,7 @@ namespace GerenciadorReceitasGUI2
                 }
 
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine(receita.Descricao()); // 🔹 Usa o método da classe abstrata
+                sb.AppendLine(receita.Descricao()); // Usa o método da classe abstrata
                 sb.AppendLine($"Categoria: {receita.Categoria?.Nome ?? "Sem Categoria"}");
                 sb.AppendLine($"Tempo de Preparo: {receita.TempoPreparo} minutos");
                 sb.AppendLine(new string('-', 40));
@@ -168,7 +175,7 @@ namespace GerenciadorReceitasGUI2
                 sb.AppendLine("\n🥕 Ingredientes:\n");
                 foreach (var ingrediente in receita.Ingredientes)
                 {
-                    sb.AppendLine($"   ➜ {ingrediente.Descricao()}"); // 🔹 Usa o método da classe abstrata
+                    sb.AppendLine($"   ➜ {ingrediente.Descricao()}"); // Usa o método da classe abstrata
                 }
 
                 sb.AppendLine("\n📖 Modo de Preparo:\n");
